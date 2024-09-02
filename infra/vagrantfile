@@ -1,0 +1,108 @@
+Vagrant.configure("2") do |config|
+    
+    # prefix vms
+    prefix_vms = "cdp_hadoop_"
+
+    # Définir le nombre de masters et de slaves
+    masters_count = 1
+    slaves_count = 2
+    masters = (1..masters_count).map { |i| "#{prefix_vms}master-#{i}" }
+    slaves = (1..slaves_count).map { |i| "#{prefix_vms}slave-#{i}" }
+    
+    # network params
+    ip_counter = 1
+    subnet_ip = "124.0.24"
+    edge_ip = "124.0.24.100"
+    db_server_ip = "124.0.24.101"
+    cloudera_manager_server_ip = "124.0.24.102"
+    
+    # vm image config
+    config.vm.box = "ubuntu/bionic64"
+    config.vm.network "forwarded_port", guest: 80, host: 8080
+
+    # Scripts shell
+    add_user_script = "../scripts/add_user.sh"
+    ssh_passwordless_script = "../scripts/ssh_passwordless.sh"
+    sync_hosts_script = "../scripts/sync_hosts"
+  
+  
+    # Ajouter les machines de master
+    masters.each do |name|
+      config.vm.define name do |machine|
+        machine.vm.hostname = name
+        machine.vm.network "private_network", ip: "#{subnet_ip}.#{ip_counter}"
+        ip_counter += 1
+        machine.vm.provider "virtualbox" do |vb|
+          vb.name = name
+          vb.memory = "18432"
+          vb.cpus = 8
+        end
+        # Utiliser les scripts de provisionnement
+        machine.vm.provision "shell", path: add_user_script
+        machine.vm.provision "shell", path: ssh_passwordless_script
+      end
+    end
+  
+    # Ajouter les machines de slave
+    slaves.each do |name|
+      config.vm.define name do |machine|
+        machine.vm.hostname = name
+        machine.vm.network "private_network", ip: "#{subnet_ip}.#{ip_counter}"
+        ip_counter += 1
+        machine.vm.provider "virtualbox" do |vb|
+          vb.name = name
+          vb.memory = "16384"
+          vb.cpus = 8
+        end
+        # Utiliser les scripts de provisionnement
+        machine.vm.provision "shell", path: add_user_script
+        machine.vm.provision "shell", path: ssh_passwordless_script
+      end
+    end
+  
+    # Ajouter la machine edge
+    config.vm.define "edge" do |machine|
+      machine.vm.hostname = "#{prefix_vms}edge"
+      machine.vm.network "private_network", ip: "#{edge_ip}"
+      machine.vm.provider "virtualbox" do |vb|
+        vb.name = "edge"
+        vb.memory = "8192"
+        vb.cpus = 8
+      end
+      # Utiliser les scripts de provisionnement
+      machine.vm.provision "shell", path: add_user_script
+      machine.vm.provision "shell", path: ssh_passwordless_script
+    end
+  
+    # Ajouter la machine db_server
+    config.vm.define "db_server" do |machine|
+      machine.vm.hostname = "#{prefix_vms}db_server"
+      machine.vm.network "private_network", ip: "#{db_server_ip}"
+      machine.vm.provider "virtualbox" do |vb|
+        vb.name = "db_server"
+        vb.memory = "4096"
+        vb.cpus = 4
+      end
+      # Utiliser les scripts de provisionnement
+      machine.vm.provision "shell", path: add_user_script
+      machine.vm.provision "shell", path: ssh_passwordless_script
+    end
+  
+    # Ajouter la machine cloudera_manager_server
+    config.vm.define "cloudera_manager_server" do |machine|
+      machine.vm.hostname = "#{prefix_vms}cloudera_manager_server"
+      machine.vm.network "private_network", ip: "#{cloudera_manager_server_ip}"
+      machine.vm.provider "virtualbox" do |vb|
+        vb.name = "cloudera_manager_server"
+        vb.memory = "8192"
+        vb.cpus = 8
+      end
+      # Utiliser les scripts de provisionnement
+      machine.vm.provision "shell", path: add_user_script
+      machine.vm.provision "shell", path: ssh_passwordless_script
+    end
+
+    # Provisionner les hosts
+    config.vm.provision "shell", path: sync_hosts_script, run: "always"
+  end
+  
