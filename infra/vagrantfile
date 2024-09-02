@@ -32,10 +32,7 @@ Vagrant.configure("2") do |config|
 
     # Scripts shell
     add_user_script = "./scripts/add_user.sh"
-    ssh_passwordless_script = "./scripts/ssh_passwordless.sh"
-    sync_hosts_script = "./scripts/sync_hosts.sh"
-    update_hosts_script = "./scripts/update_hosts.sh"
-  
+    collect_hosts_script = "./scripts/collect_hosts.sh"
   
     # Ajouter les machines de master
     masters.each do |name|
@@ -50,8 +47,6 @@ Vagrant.configure("2") do |config|
         end
         # Utiliser les scripts de provisionnement
         machine.vm.provision "shell", path: add_user_script
-        machine.vm.provision "shell", path: update_hosts_script
-        #machine.vm.provision "shell", path: ssh_passwordless_script
       end
     end
   
@@ -68,8 +63,6 @@ Vagrant.configure("2") do |config|
         end
         # Utiliser les scripts de provisionnement
         machine.vm.provision "shell", path: add_user_script
-        machine.vm.provision "shell", path: update_hosts_script
-        #machine.vm.provision "shell", path: ssh_passwordless_script
       end
     end
   
@@ -84,8 +77,6 @@ Vagrant.configure("2") do |config|
       end
       # Utiliser les scripts de provisionnement
       machine.vm.provision "shell", path: add_user_script
-      machine.vm.provision "shell", path: update_hosts_script
-      #machine.vm.provision "shell", path: ssh_passwordless_script
     end
 
 =begin     
@@ -101,8 +92,6 @@ Vagrant.configure("2") do |config|
       end
       # Utiliser les scripts de provisionnement
       machine.vm.provision "shell", path: add_user_script
-      machine.vm.provision "shell", path: update_hosts_script
-      #machine.vm.provision "shell", path: ssh_passwordless_script
     end
   
     # Ajouter la machine cloudera_manager_server
@@ -116,12 +105,10 @@ Vagrant.configure("2") do |config|
       end
       # Utiliser les scripts de provisionnement
       machine.vm.provision "shell", path: add_user_script
-      machine.vm.provision "shell", path: update_hosts_script
-      #machine.vm.provision "shell", path: ssh_passwordless_script
     end
 //*/
 =end    
     # Provisionner les hosts
-    config.vm.provision "shell", path: sync_hosts_script, run: "always"
+    config.vm.provision "shell", path: collect_hosts_script, run: "always"
   end
   
