@@ -13,6 +13,8 @@ mysql_root_password: hadoop
 tmp_dir: /tmp
 #####
 mycnf_file_dest: /etc/mysql/my.cnf
+myowner: mysql
+mygroup: mysql
 #####
 ansible_python_interpreter: /usr/bin/python3
 
