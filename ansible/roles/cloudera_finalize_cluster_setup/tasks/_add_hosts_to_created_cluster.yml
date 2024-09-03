@@ -1,19 +1,5 @@
 ---
 
-- name: Get Cloudera Manager API version
-  uri:
-    url: http://{{ groups['cloudera_managers'][0] }}:{{ scm_port }}/api/version
-    method: GET
-    status_code: 200
-    user: "{{ scm_default_user }}"
-    password: "{{ scm_default_pass }}"
-    force_basic_auth: yes
-    return_content: yes
-  register: result
-
-- set_fact:
-    cm_api_uri: "http://{{ groups['cloudera_managers'][0] }}:{{ scm_port }}/api/{{ result.content }}"
-
 - name: Get the host identifiers and names from Cloudera Manager
   uri:
     url: "{{ cm_api_uri }}/hosts"

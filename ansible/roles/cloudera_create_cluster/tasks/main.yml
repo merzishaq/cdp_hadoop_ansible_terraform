@@ -1,5 +1,7 @@
 ---
-- import_tasks: _generate_api_uri.yml
+- name: Include generate api_uri role
+  include_role:
+    name: cloudera_generate_api_uri
 - import_tasks: _add_license.yml
 - import_tasks: _add_cluster.yml
 - import_tasks: _add_hosts.yml
