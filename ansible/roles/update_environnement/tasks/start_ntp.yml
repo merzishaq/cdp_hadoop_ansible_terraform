@@ -1,0 +1,19 @@
+- name: Stop firewall UFW
+  service:
+    name: ufw
+    state: stopped
+    enabled: no
+
+- name: Install NTP and NTPdate
+  apt:
+    name:
+      - ntp
+      - ntpdate
+    state: present
+
+- name: Start NTP
+  service:
+    name: ntp
+    state: started
+    enabled: yes
+
