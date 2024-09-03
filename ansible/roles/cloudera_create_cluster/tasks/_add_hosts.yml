@@ -1,0 +1,53 @@
+---
+- name: Définir une variable contenant les adresses IP de tous les hôtes
+  set_fact:
+    all_hosts_info: "{{ groups['all_servers'] | list }}"
+
+- name: Add hosts
+  uri:
+    url: "{{ cm_api_uri }}/hosts"
+    method: POST
+    status_code:
+      - 200
+      - 201
+      - 400
+    force_basic_auth: yes
+    user: "{{ scm_default_user }}"
+    password: "{{ scm_default_pass }}"
+    return_content: yes
+    body_format: json
+    body: |
+        {
+          "items": [
+            {
+              "ipAddress": "{{ hostvars[item].ansible_host }}",
+              "hostname": "{{ item }}",
+              "roleRefs" : [ {
+                "clusterName" : "{{ cluster_name }}"
+              } ]
+            }
+          ]
+        }
+    headers:
+      Content-Type: "application/json"
+  loop: "{{ all_hosts_info }}"
+  register: add_host_result
+
+- name: Vérifier la réponse de l'ajout des hôtes
+  debug:
+    msg: "{{ add_host_result.results | map(attribute='json') | list }}"
+
+- name: Get the host identifiers and names from Cloudera Manager
+  uri:
+    url: "{{ cm_api_uri }}/hosts"
+    method: GET
+    status_code: 200
+    user: "{{ scm_default_user }}"
+    password: "{{ scm_default_pass }}"
+    force_basic_auth: yes
+    return_content: yes
+  register: scm_host_list
+
+- name: Extract the host identifiers and names into facts
+  set_fact:
+    scm_hosts: "{{ lookup('template', 'scm_host_list.j2') | from_yaml }}"
