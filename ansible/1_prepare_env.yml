@@ -2,4 +2,4 @@
 - name: Prepare the environnement
   hosts: all_servers
   roles:
-    - update_environnement
+    - environnement_update

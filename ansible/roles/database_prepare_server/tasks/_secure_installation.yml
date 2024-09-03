@@ -29,8 +29,10 @@
     login_password: "{{ mysql_root_password }}"
     db: test
     state: absent
+  ignore_errors: True
   become_user: root
   become: true
+
 
 - name: Reload privilege tables
   command: 'mysql -uroot -p{{ mysql_root_password }} -ne "{{ item }}"'
