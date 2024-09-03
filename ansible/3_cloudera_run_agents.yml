@@ -1,5 +1,5 @@
 ---
-- name: Add cloudera rest of dpendencies
+- name: Run cloudera agents
   hosts: all_servers
   roles:
-    - cloudera_dependencies
+    - cloudera_run_agents
