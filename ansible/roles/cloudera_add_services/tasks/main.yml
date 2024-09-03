@@ -1,0 +1,29 @@
+---
+- name: Check {{ service_name }} service status
+  uri:
+    url: "{{ cm_api_uri }}/clusters/{{ cluster_name }}/services/{{ service_name }}"
+    method: GET
+    user: "{{ scm_default_user }}"
+    password: "{{ scm_default_pass }}"
+    headers:
+      Content-Type: "application/json"
+    status_code: [200, 404]
+    validate_certs: no
+  register: service_status
+
+- name: Debug {{ service_name }} service status
+  debug:
+    var: service_status.json
+
+- name: Add {{ service_name }} service to the cluster if not present
+  uri:
+    url: "{{ cm_api_uri }}/clusters/{{ cluster_name }}/services"
+    method: POST
+    user: "{{ scm_default_user }}"
+    password: "{{ scm_default_pass }}"
+    headers:
+      Content-Type: "application/json"
+    body: "{{ { 'items': [ { 'name': service_name, 'type': service_type } ] } | to_json }}"
+    status_code: [200, 201]
+    validate_certs: no
+  when: service_status.status != 200

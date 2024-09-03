@@ -1,0 +1,17 @@
+- name: Add services
+  hosts: cloudera_managers
+  vars_files:
+    - ./vars/all.yml
+    - ./vars/cdp_clusters.yml
+
+  roles:
+    - cloudera_generate_api_uri
+
+  tasks:
+    - name: Add services
+      include_role:
+        name: cloudera_add_services
+      vars:
+        service_name: "{{ item }}"
+        service_type: "{{ item }}"
+      loop: "{{ needed_service }}"
