@@ -1,5 +1,0 @@
----
-- name: Run cloudera agents
-  hosts: all_servers
-  roles:
-    - cloudera_run_agents

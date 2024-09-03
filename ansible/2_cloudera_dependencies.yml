@@ -1,0 +1,7 @@
+---
+- name: Add cloudera rest of dpendencies
+  hosts: all_servers
+  vars_files:
+    - ./vars/all.yml
+  roles:
+    - cloudera_dependencies
