@@ -1,0 +1,6 @@
+- name: Start MariaDB Service
+  service:
+    name: mariadb
+    state: restarted
+    enabled: true
+  ignore_errors: true
