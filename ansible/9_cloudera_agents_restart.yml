@@ -1,0 +1,9 @@
+- name: Restart Cloudera Agents on all servers
+  hosts: all_servers
+  become: yes
+  tasks:
+    - name: Restart Cloudera agent
+      service:
+        name: cloudera-scm-agent
+        state: restarted
+        enabled: yes
