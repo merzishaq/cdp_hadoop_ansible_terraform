@@ -1,0 +1,12 @@
+---
+- name: Start Cloudera Manager Server
+  service:
+    name: cloudera-scm-server
+    state: started
+    enabled: yes
+  register: start_result
+  ignore_errors: yes
+
+- name: Notify that Cloudera Manager Server is starting
+  debug:
+    msg: "Cloudera Manager Server is starting ..."
