@@ -1,0 +1,44 @@
+---
+
+- name: Check if the cluster already exists
+  uri:
+    url: "{{ cm_api_uri }}/clusters"
+    method: GET
+    user: "{{ scm_default_user }}"
+    password: "{{ scm_default_pass }}"
+    headers:
+      Content-Type: "application/json"
+    status_code: 200
+    validate_certs: no
+  register: existing_clusters
+
+- name: Set fact if cluster exists
+  set_fact:
+    cluster_exists: "{{ (existing_clusters.json['items'] | default([]) | selectattr('name', 'equalto', cluster_name) | list | length > 0) }}"
+
+- name: Debug the cluster_exists fact
+  debug:
+    var: cluster_exists
+
+- name: Create a cluster via Cloudera Manager API if it does not exist
+  uri:
+    url: "{{ cm_api_uri }}/clusters"
+    method: POST
+    user: "{{ scm_default_user }}"
+    password: "{{ scm_default_pass }}"
+    headers:
+      Content-Type: "application/json"
+    body_format: json
+    body: |
+      {
+        "items": [
+          {
+            "name": "{{ cluster_name }}",
+            "version": "CDH7"
+          }
+        ]
+      }
+    status_code: [200, 201, 400]
+    validate_certs: no
+  when: not cluster_exists
+  register: cluster_creation_result

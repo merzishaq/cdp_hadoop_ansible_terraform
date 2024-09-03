@@ -1,0 +1,17 @@
+---
+- name: Add Cloudera Manager trial license
+  uri:
+    url: "{{ cm_api_uri }}/cm/trial/begin"
+    method: POST
+    status_code: 200,204,400
+    force_basic_auth: yes
+    user: "{{ scm_default_user }}"
+    password: "{{ scm_default_pass }}"
+  notify:
+    - restart cloudera-scm-server
+  register: resp
+
+- meta: flush_handlers
+
+- debug:
+    var: resp

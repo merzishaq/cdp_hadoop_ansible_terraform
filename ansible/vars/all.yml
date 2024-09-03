@@ -1,8 +1,12 @@
 ---
 # Commun vars
+scm_default_user: admin
+scm_default_pass: admin
+scm_port: 7180
 
 # Cloudera vars
 cloudera_agent_file_config_path: "/etc/cloudera-scm-agent/config.ini"
 
 # Connector vars
 mysql_connector_path: "../ressources/mysql-connector-java-5.1.48.zip"
+
