@@ -1,0 +1,4 @@
+---
+- import_tasks: _add_cdp_manager_in_apt.yml
+- import_tasks: _install_cdp_daemons.yml
+- import_tasks: _install_cdp_agents.yml

@@ -1,0 +1,5 @@
+---
+# Commun vars
+
+# Cloudera vars
+cloudera_agent_file_config_path: "/etc/cloudera-scm-agent/config.ini"

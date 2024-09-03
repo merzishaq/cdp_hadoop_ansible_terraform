@@ -1,0 +1,5 @@
+---
+- name: Install something on all machines
+  hosts: all_servers
+  roles:
+    - update_environnement
