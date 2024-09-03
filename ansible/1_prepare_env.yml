@@ -1,5 +1,5 @@
 ---
-- name: Install something on all machines
+- name: Prepare the environnement
   hosts: all_servers
   roles:
     - update_environnement
