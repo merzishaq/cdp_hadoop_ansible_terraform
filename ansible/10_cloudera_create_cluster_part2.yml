@@ -1,0 +1,8 @@
+- name: Continue the cluster's installation
+  hosts: cloudera_managers
+  vars_files:
+    - ./vars/all.yml
+    - ./vars/cdp_clusters.yml
+    - ./vars/db_server.yml
+  roles:
+    - cloudera_finalize_cluster_setup

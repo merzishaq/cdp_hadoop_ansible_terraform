@@ -1,0 +1,20 @@
+- set_fact:
+    cms_config_json: "{{ lookup('template', 'cms_base.j2', convert_data=False) }}"
+
+- name: Setup the Cloudera Management Services (CMS)
+  uri:
+    url: "{{ cm_api_uri }}/cm/service"
+    method: PUT
+    body_format: json
+    body: "{{ cms_config_json | to_json }}"
+    status_code: 200, 400
+    force_basic_auth: yes
+    user: "{{ scm_default_user }}"
+    password: "{{ scm_default_pass }}"
+    return_content: yes
+  register: cms_resp
+  failed_when:
+    - "'MGMT' not in cms_resp.content"
+    - "'CMS instance already exists' not in cms_resp.content"
+  notify:
+    - restart cloudera-scm-server

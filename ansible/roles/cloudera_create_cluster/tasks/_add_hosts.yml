@@ -36,18 +36,3 @@
 - name: Vérifier la réponse de l'ajout des hôtes
   debug:
     msg: "{{ add_host_result.results | map(attribute='json') | list }}"
-
-- name: Get the host identifiers and names from Cloudera Manager
-  uri:
-    url: "{{ cm_api_uri }}/hosts"
-    method: GET
-    status_code: 200
-    user: "{{ scm_default_user }}"
-    password: "{{ scm_default_pass }}"
-    force_basic_auth: yes
-    return_content: yes
-  register: scm_host_list
-
-- name: Extract the host identifiers and names into facts
-  set_fact:
-    scm_hosts: "{{ lookup('template', 'scm_host_list.j2') | from_yaml }}"

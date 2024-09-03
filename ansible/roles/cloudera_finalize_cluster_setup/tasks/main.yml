@@ -1,0 +1,4 @@
+---
+- import_tasks: _wait_for_heartbeats.yml
+- import_tasks: _add_hosts_to_created_cluster.yml
+- import_tasks: _add_cdp_managment_services.yml

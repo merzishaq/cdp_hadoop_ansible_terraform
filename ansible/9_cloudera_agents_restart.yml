@@ -1,6 +1,6 @@
 - name: Restart Cloudera Agents on all servers
   hosts: all_servers
-  become: yes
+  become: True
   tasks:
     - name: Restart Cloudera agent
       service:
