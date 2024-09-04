@@ -1,0 +1,8 @@
+---
+- name: Install MariaDB service
+  hosts: databases
+  become: True
+  vars_files:
+    - ./vars/db_server.yml
+  roles:
+    - database_prepare_server

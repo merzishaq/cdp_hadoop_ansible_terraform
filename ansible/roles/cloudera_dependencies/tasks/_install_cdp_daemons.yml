@@ -1,0 +1,4 @@
+- name: Install Cloudera daemons
+  apt:
+    name: cloudera-manager-daemons
+    state: present

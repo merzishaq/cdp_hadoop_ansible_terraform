@@ -1,0 +1,5 @@
+---
+- name: Install cloudera server
+  hosts: cloudera_managers
+  roles:
+    - cloudera_run_server

@@ -1,0 +1,43 @@
+---
+
+- name: Get the host identifiers and names from Cloudera Manager
+  uri:
+    url: "{{ cm_api_uri }}/hosts"
+    method: GET
+    status_code: 200
+    user: "{{ scm_default_user }}"
+    password: "{{ scm_default_pass }}"
+    force_basic_auth: yes
+    return_content: yes
+  register: scm_host_list
+
+- name: Extract the host identifiers and names into facts
+  set_fact:
+    scm_hosts: "{{ lookup('template', 'scm_host_list.j2') | from_yaml }}"
+
+- name: Add hosts to cluster
+  uri:
+    url: "{{ cm_api_uri }}/clusters/{{ cluster_name }}/hosts"
+    method: POST
+    headers:
+      Content-Type: "application/json"
+    body_format: json
+    body: |
+      {
+        "items": [
+          {% for host, host_id in scm_hosts.ids.items() %}
+          {
+            "hostId": "{{ host_id }}",
+            "hostname": "{{ scm_hosts.names[host] }}"
+          }{% if not loop.last %},{% endif %}
+          {% endfor %}
+        ]
+      }
+    user: "{{ scm_default_user }}"
+    password: "{{ scm_default_pass }}"
+    validate_certs: no
+    status_code: [200, 201, 400]
+  notify:
+  - restart cloudera-scm-server
+  register: api_response
+  

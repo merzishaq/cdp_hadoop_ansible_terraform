@@ -1,0 +1,17 @@
+- name: Remove existing Cloudera Manager repository if it exists
+  file:
+    path: /etc/apt/sources.list.d/cloudera-manager.list
+    state: absent
+
+- name: Download Cloudera Manager repository
+  shell: |
+    wget https://archive.cloudera.com/cm7/7.4.4/ubuntu1804/apt/cloudera-manager-trial.list -O /etc/apt/sources.list.d/cloudera-manager.list
+
+- name: Cloudera GPG key
+  apt_key:
+    url: https://archive.cloudera.com/cm7/7.4.4/ubuntu1804/apt/archive.key
+    state: present
+
+- name: Update apt cache
+  apt:
+    update_cache: yes

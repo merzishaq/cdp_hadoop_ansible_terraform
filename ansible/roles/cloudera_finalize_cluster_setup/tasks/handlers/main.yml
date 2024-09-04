@@ -1,0 +1,4 @@
+- name: restart cloudera-scm-server
+  service:
+    name: cloudera-scm-server
+    state: restarted

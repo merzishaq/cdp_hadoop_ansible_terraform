@@ -1,0 +1,7 @@
+---
+- import_tasks: _wait_for_heartbeats.yml
+- name: Include generate api_uri role
+  include_role:
+    name: cloudera_generate_api_uri
+- import_tasks: _add_hosts_to_created_cluster.yml
+- import_tasks: _add_cdp_managment_services.yml

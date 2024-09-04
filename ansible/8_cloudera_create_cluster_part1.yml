@@ -1,0 +1,9 @@
+---
+- name: Create a cloudera cluster with needed services
+  hosts: cloudera_managers
+  vars_files:
+    - ./vars/all.yml
+    - ./vars/cdp_clusters.yml
+    
+  roles:
+    - cloudera_create_cluster

@@ -1,0 +1,7 @@
+---
+- name: Run cloudera agents
+  hosts: all_servers
+  vars_files:
+    - ./vars/all.yml
+  roles:
+    - cloudera_nodes_add_connector

@@ -1,0 +1,6 @@
+---
+- import_tasks: _install_database_package.yml
+- import_tasks: _configurate_files.yml
+- import_tasks: _start_database.yml
+- import_tasks: _secure_installation.yml
+- import_tasks: _create_databases.yml

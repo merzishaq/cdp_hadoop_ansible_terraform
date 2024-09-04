@@ -1,0 +1,12 @@
+- name: Install Cloudera agent
+  apt:
+    name: cloudera-manager-agent
+    state: present
+
+- name: Configure Cloudera agent (Set the Cloudera Manager server)
+  lineinfile:
+    path: "{{ cloudera_agent_file_config_path }}"
+    regexp: '^server_host='
+    line: 'server_host=master1'
+  notify:
+    - restart cloudera agent

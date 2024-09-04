@@ -1,0 +1,30 @@
+- name: Create MariaDB configuration file
+  template:
+    src: my.cnf.j2
+    dest: "{{ mycnf_file_dest }}"
+  notify:
+    - restart mariadb
+
+- name: Create MariaDB log directory
+  file:
+    path: "{{ mysql_log | dirname }}"
+    state: directory
+    owner: "{{ myowner }}"
+    group: "{{ mygroup }}"
+    mode: '0775'
+
+- name: Create MariaDB log file
+  file:
+    path: "{{ mysql_log }}"
+    state: touch
+    owner: "{{ myowner }}"
+    group: "{{ mygroup }}"
+    mode: '0775'
+
+- name: Create MariaDB PID directory
+  file:
+    path: "{{ mysql_pid_dir }}"
+    state: directory
+    owner: "{{ myowner }}"
+    group: "{{ mygroup }}"
+    mode: '0775'
