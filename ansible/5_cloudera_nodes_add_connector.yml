@@ -1,7 +1,8 @@
 ---
-- name: Run cloudera agents
+- name: Add mysql connectors
   hosts: all_servers
   vars_files:
     - ./vars/all.yml
+    - ./vars/db_server.yml
   roles:
     - cloudera_nodes_add_connector

@@ -1,6 +1,6 @@
 - name: Get Cloudera Manager API version
   uri:
-    url: http://{{ groups['cloudera_managers'][0] }}:{{ scm_port }}/api/version
+    url: http://{{ groups['cloudera_manager_server'][0] }}:{{ scm_port }}/api/version
     method: GET
     status_code: 200
     user: "{{ scm_default_user }}"
@@ -10,4 +10,4 @@
   register: result
 
 - set_fact:
-    cm_api_uri: "http://{{ groups['cloudera_managers'][0] }}:{{ scm_port }}/api/{{ result.content }}"
+    cm_api_uri: "http://{{ groups['cloudera_manager_server'][0] }}:{{ scm_port }}/api/{{ result.content }}"

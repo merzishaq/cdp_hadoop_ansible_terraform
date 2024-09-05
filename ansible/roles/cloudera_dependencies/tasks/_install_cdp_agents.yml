@@ -7,6 +7,6 @@
   lineinfile:
     path: "{{ cloudera_agent_file_config_path }}"
     regexp: '^server_host='
-    line: 'server_host=master1'
+    line: "server_host={{ groups['cloudera_manager_server'][0] }}"
   notify:
     - restart cloudera agent
