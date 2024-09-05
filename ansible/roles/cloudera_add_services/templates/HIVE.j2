@@ -1,5 +1,33 @@
 {
   "name": "{{ service_name }}",
-  "type": "{{ service_name }}",
-  "roles": []
+  "type": "HIVE",
+  "roles": [
+    {% for server in groups['masters'] %}
+    {
+      "name": "hive-server{{ loop.index }}",
+      "type": "HIVESERVER2",
+      "hostRef": {
+        "hostId": "{{ server }}"
+      },
+      "config": {}
+    }
+    {% if not loop.last %}, {% endif %}
+    {% endfor %},
+    {
+      "name": "hive-metastore",
+      "type": "HIVEMETASTORE",
+      "hostRef": {
+        "hostId": "{{ groups['cloudera_manager_server'][0] }}"
+      },
+      "config": {}
+    },
+    {
+      "name": "hive-client",
+      "type": "GATEWAY",
+      "hostRef": {
+        "hostId": "{{ groups['edge'][0] }}"
+      },
+      "config": {}
+    }
+  ]
 }
