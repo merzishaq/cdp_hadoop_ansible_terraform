@@ -1,0 +1,35 @@
+{
+  "name": "{{ service_name }}",
+  "type": "{{ service_name }}",
+  "roles": [
+    {% for namenode in groups['masters'] %}
+    {
+      "name": "hdfs-namenode{{ loop.index }}",
+      "type": "NAMENODE",
+      "hostRef": {
+        "hostId": "{{ namenode }}"
+      },
+      "config": {}
+    }
+    {% if not loop.last %}, {% endif %}
+    {% endfor %},
+    {
+      "name": "hdfs-secondarynamenode",
+      "type": "SECONDARYNAMENODE",
+      "hostRef": {
+        "hostId": "{{ groups['cloudera_manager_server'][0] }}"
+      },
+      "config": {}
+    },
+    {% for datanode in groups['slaves'] %}
+    {
+      "name": "hdfs-datanode{{ loop.index }}",
+      "type": "DATANODE",
+      "hostRef": {
+        "hostId": "{{ datanode }}"
+      }
+    }
+    {% if not loop.last %}, {% endif %}
+    {% endfor %}
+  ]
+}

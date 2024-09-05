@@ -1,0 +1,73 @@
+########### HDFS ############
+- name: Configure roles for services - HDFS (NAMENODE)
+  uri:
+    url: "{{ cm_api_uri }}/clusters/{{ cluster_name }}/services/HDFS/roleConfigGroups/HDFS-NAMENODE-BASE/config"
+    method: PUT
+    user: "{{ scm_default_user }}"
+    password: "{{ scm_default_pass }}"
+    headers:
+      Content-Type: "application/json"
+    body: '{ "items": [ { "name": "dfs_name_dir_list", "value": "/data/hdfs/namenode" } ] }'
+    status_code: 200
+    validate_certs: no
+
+- name: Configure roles for services - HDFS (DATANODE)
+  uri:
+    url: "{{ cm_api_uri }}/clusters/{{ cluster_name }}/services/HDFS/roleConfigGroups/HDFS-DATANODE-BASE/config"
+    method: PUT
+    user: "{{ scm_default_user }}"
+    password: "{{ scm_default_pass }}"
+    headers:
+      Content-Type: "application/json"
+    body: '{ "items": [ { "name": "dfs_data_dir_list", "value": "/data/hdfs/datanode" } ] }'
+    status_code: 200
+    validate_certs: no
+
+- name: Configure roles for services - HDFS (SECONDARYNAMENODE)
+  uri:
+    url: "{{ cm_api_uri }}/clusters/{{ cluster_name }}/services/HDFS/roleConfigGroups/HDFS-SECONDARYNAMENODE-BASE/config"
+    method: PUT
+    user: "{{ scm_default_user }}"
+    password: "{{ scm_default_pass }}"
+    headers:
+      Content-Type: "application/json"
+    body: '{ "items": [ { "name": "fs_checkpoint_dir_list", "value": "/data/hdfs/secondarynamenode" } ] }'
+    status_code: 200
+    validate_certs: no
+
+########### YARN ############
+- name: Configure roles for services - YARN (RESOURCEMANAGER)
+  uri:
+    url: "{{ cm_api_uri }}/clusters/{{ cluster_name }}/services/YARN/roleConfigGroups/YARN-RESOURCEMANAGER-BASE/config"
+    method: PUT
+    user: "{{ scm_default_user }}"
+    password: "{{ scm_default_pass }}"
+    headers:
+      Content-Type: "application/json"
+    body: '{ "items": [ { "name": "yarn_nodemanager_local_dirs", "value": "/data/yarn/resourcemanager" } ] }'
+    status_code: 200
+    validate_certs: no
+
+- name: Configure roles for services - YARN (NODEMANAGER)
+  uri:
+    url: "{{ cm_api_uri }}/clusters/{{ cluster_name }}/services/YARN/roleConfigGroups/YARN-NODEMANAGER-BASE/config"
+    method: PUT
+    user: "{{ scm_default_user }}"
+    password: "{{ scm_default_pass }}"
+    headers:
+      Content-Type: "application/json"
+    body: '{ "items": [ { "name": "yarn_nodemanager_local_dirs", "value": "/data/yarn/nodemanager" } ] }'
+    status_code: 200
+    validate_certs: no
+
+- name: Configure roles for services - YARN (JOBHISTORY)
+  uri:
+    url: "{{ cm_api_uri }}/clusters/{{ cluster_name }}/services/YARN/roleConfigGroups/YARN-JOBHISTORY-BASE/config"
+    method: PUT
+    user: "{{ scm_default_user }}"
+    password: "{{ scm_default_pass }}"
+    headers:
+      Content-Type: "application/json"
+    body: '{ "items": [ { "name": "yarn_jobhistory_log_dir", "value": "/data/yarn/jobhistory" } ] }'
+    status_code: 200
+    validate_certs: no

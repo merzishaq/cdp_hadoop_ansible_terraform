@@ -15,3 +15,6 @@
         service_name: "{{ item }}"
         service_type: "{{ item }}"
       loop: "{{ needed_service }}"
+
+#    - include_role: 
+#        name: cloudera_add_services_roles

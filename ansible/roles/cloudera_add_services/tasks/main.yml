@@ -15,6 +15,10 @@
   debug:
     var: service_status.json
 
+- debug:
+    msg: "{{ lookup('template', service_name ~ '.j2') | from_yaml }}"
+
+    
 - name: Add {{ service_name }} service to the cluster if not present
   uri:
     url: "{{ cm_api_uri }}/clusters/{{ cluster_name }}/services"
@@ -23,7 +27,7 @@
     password: "{{ scm_default_pass }}"
     headers:
       Content-Type: "application/json"
-    body: "{{ { 'items': [ { 'name': service_name, 'type': service_type } ] } | to_json }}"
+    body: "{{ { 'items': [ lookup('template', service_name ~ '.j2') | from_yaml ] } | to_json }}"
     status_code: [200, 201]
     validate_certs: no
   when: service_status.status != 200
