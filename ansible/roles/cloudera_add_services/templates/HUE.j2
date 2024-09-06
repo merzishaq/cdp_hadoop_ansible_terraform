@@ -2,25 +2,13 @@
   "name": "{{ service_name }}",
   "type": "{{ service_name }}",
   "roles": [
-    {% for node in groups['masters'] %}
-        {
-      "name": "hue-client",
-      "type": "GATEWAY",
+    {
+      "name": "hue-server",
+      "type": "HUE_SERVER",
       "hostRef": {
         "hostId": "{{ groups['edge'][0] }}"
       },
       "config": {}
-    },
-
-    {
-      "name": "hue-server{{ loop.index }}",
-      "type": "HUE_SERVER",
-      "hostRef": {
-        "hostId": "{{ node }}"
-      },
-      "config": {}
     }
-    {% if not loop.last %}, {% endif %}
-    {% endfor %}
   ]
 }

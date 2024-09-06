@@ -14,11 +14,12 @@
     {% if not loop.last %}, {% endif %}
     {% endfor %},
     {
-      "name": "zookeeper-otherserver{{ loop.index }}",
+      "name": "zookeeper-otherserver",
       "type": "SERVER",
       "hostRef": {
         "hostId": "{{ groups['cloudera_manager_server'][0] }}"
-      }
+      },
+      "config": {}
     }
   ]
 }
