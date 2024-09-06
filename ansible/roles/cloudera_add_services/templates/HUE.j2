@@ -1,0 +1,14 @@
+{
+  "name": "{{ service_name }}",
+  "type": "{{ service_name }}",
+  "roles": [
+    {
+      "name": "hue-server",
+      "type": "HUE_SERVER",
+      "hostRef": {
+        "hostId": "{{ groups['edge'][0] }}"
+      },
+      "config": {}
+    }
+  ]
+}

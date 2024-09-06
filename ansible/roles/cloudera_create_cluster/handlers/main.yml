@@ -9,7 +9,7 @@
 
 - name: wait cloudera-scm-server
   wait_for:
-    host: "{{ groups['cloudera_managers'][0] }}"
+    host: "{{ groups['cloudera_manager_server'][0] }}"
     port: "{{ scm_port }}"
     delay: 5
     state: started

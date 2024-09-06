@@ -4,7 +4,7 @@
     state: present
 
 - name: Prepare Cloudera Manager Server External Database
-  shell: /opt/cloudera/cm/schema/scm_prepare_database.sh --host {{ groups['databases'][0] }} {{ database_type }} {{ databases.scm.name }} {{ databases.scm.user }} {{ databases.scm.pass }} --force
+  shell: /opt/cloudera/cm/schema/scm_prepare_database.sh --host {{ groups['database_servers'][0] }} {{ database_type }} {{ databases.scm.name }} {{ databases.scm.user }} {{ databases.scm.pass }} --force
   become: True
   become_user: cloudera-scm
   register: db_prep_result

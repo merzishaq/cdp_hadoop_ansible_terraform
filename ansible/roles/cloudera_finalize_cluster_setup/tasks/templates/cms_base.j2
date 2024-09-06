@@ -6,7 +6,7 @@
       "name": "mgmt-SERVICEMONITOR",
       "type": "SERVICEMONITOR",
       "hostRef": {
-        "hostId": "{{ groups['cloudera_managers'][0] }}"
+        "hostId": "{{ groups['cloudera_manager_server'][0] }}"
       }
     }, {
       "name": "mgmt-ACTIVITYMONITOR",
@@ -15,13 +15,13 @@
         "roleConfigGroupName": "mgmt-ACTIVITYMONITOR-BASE"
       },
       "hostRef": {
-        "hostId": "{{ groups['cloudera_managers'][0] }}"
+        "hostId": "{{ groups['cloudera_manager_server'][0] }}"
       }
     }, {
       "name": "mgmt-HOSTMONITOR",
       "type": "HOSTMONITOR",
       "hostRef": {
-        "hostId": "{{ groups['cloudera_managers'][0] }}"
+        "hostId": "{{ groups['cloudera_manager_server'][0] }}"
       }
     }, {
       "name": "mgmt-REPORTSMANAGER",
@@ -30,19 +30,19 @@
         "roleConfigGroupName": "mgmt-REPORTSMANAGER-BASE"
       },
       "hostRef": {
-        "hostId": "{{ groups['cloudera_managers'][0] }}"
+        "hostId": "{{ groups['cloudera_manager_server'][0] }}"
       }
     }, {
       "name": "mgmt-EVENTSERVER",
       "type": "EVENTSERVER",
       "hostRef": {
-        "hostId": "{{ groups['cloudera_managers'][0] }}"
+        "hostId": "{{ groups['cloudera_manager_server'][0] }}"
       }
     }, {
       "name": "mgmt-ALERTPUBLISHER",
       "type": "ALERTPUBLISHER",
       "hostRef": {
-        "hostId": "{{ groups['cloudera_managers'][0] }}"
+        "hostId": "{{ groups['cloudera_manager_server'][0] }}"
       }
     }, {
       "name": "mgmt-NAVIGATOR",
@@ -51,7 +51,7 @@
         "roleConfigGroupName": "mgmt-NAVIGATOR-BASE"
       },
       "hostRef": {
-        "hostId": "{{ groups['cloudera_managers'][0] }}"
+        "hostId": "{{ groups['cloudera_manager_server'][0] }}"
       }
     }, {
       "name": "mgmt-NAVIGATORMETASERVER",
@@ -60,7 +60,7 @@
         "roleConfigGroupName": "mgmt-NAVIGATORMETASERVER-BASE"
       },
       "hostRef": {
-        "hostId": "{{ groups['cloudera_managers'][0] }}"
+        "hostId": "{{ groups['cloudera_manager_server'][0] }}"
       }
     }
   ],
@@ -77,7 +77,7 @@
         "items": [
           {
             "name": "firehose_database_host",
-            "value": "{{ groups['databases'][0] }}"
+            "value": "{{ groups['database_servers'][0] }}"
           }, {
             "name": "firehose_database_name",
             "value": "{{ databases.amon.name }}"
@@ -105,7 +105,7 @@
         "items": [
           {
             "name": "headlamp_database_host",
-            "value": "{{ groups['databases'][0] }}"
+            "value": "{{ groups['database_servers'][0] }}"
           }, {
             "name": "headlamp_database_name",
             "value": "{{ databases.rman.name }}"
@@ -133,7 +133,7 @@
         "items": [
           {
             "name": "navigator_database_host",
-            "value": "{{ groups['databases'][0] }}"
+            "value": "{{ groups['database_servers'][0] }}"
           }, {
             "name": "navigator_database_name",
             "value": "{{ databases.nav.name }}"
@@ -161,7 +161,7 @@
         "items": [
           {
             "name": "nav_metaserver_database_host",
-            "value": "{{ groups['databases'][0] }}"
+            "value": "{{ groups['database_servers'][0] }}"
           }, {
             "name": "nav_metaserver_database_name",
             "value": "{{ databases.navms.name }}"

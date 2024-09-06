@@ -1,0 +1,25 @@
+{
+  "name": "{{ service_name }}",
+  "type": "{{ service_name }}",
+  "roles": [
+    {% for resourcemanager in groups['masters'] %}
+      {
+        "name": "zookeeper-server{{ loop.index }}",
+        "type": "SERVER",
+        "hostRef": {
+          "hostId": "{{ resourcemanager }}"
+        },
+        "config": {}
+      }
+    {% if not loop.last %}, {% endif %}
+    {% endfor %},
+    {
+      "name": "zookeeper-otherserver",
+      "type": "SERVER",
+      "hostRef": {
+        "hostId": "{{ groups['cloudera_manager_server'][0] }}"
+      },
+      "config": {}
+    }
+  ]
+}

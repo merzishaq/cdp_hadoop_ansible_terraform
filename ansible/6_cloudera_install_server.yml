@@ -1,6 +1,6 @@
 ---
 - name: Install cloudera server
-  hosts: cloudera_managers
+  hosts: cloudera_manager_server
   vars_files:
     - ./vars/db_server.yml
   roles:

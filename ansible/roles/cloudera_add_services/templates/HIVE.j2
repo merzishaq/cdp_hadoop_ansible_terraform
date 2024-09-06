@@ -1,0 +1,37 @@
+{
+  "name": "{{ service_name }}",
+  "type": "{{ service_name }}",
+  "roles": [
+    {% for node in groups['masters'] %}
+    {
+      "name": "hive-metastore{{ loop.index }}",
+      "type": "HIVEMETASTORE",
+      "hostRef": {
+        "hostId": "{{ node }}"
+      },
+      "config": {}
+    }
+    {% if not loop.last %}, {% endif %}
+    {% endfor %},
+    
+    {% for server in groups['slaves'] %}
+    {
+      "name": "hive-server{{ loop.index }}",
+      "type": "HIVESERVER2",
+      "hostRef": {
+        "hostId": "{{ server }}"
+      }
+    }
+    {% if not loop.last %}, {% endif %}
+    {% endfor %},
+
+    {
+      "name": "hive-client",
+      "type": "GATEWAY",
+      "hostRef": {
+        "hostId": "{{ groups['edge'][0] }}"
+      },
+      "config": {}
+    }
+  ]
+}

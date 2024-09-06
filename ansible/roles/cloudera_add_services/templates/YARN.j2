@@ -1,0 +1,36 @@
+{
+  "name": "{{ service_name }}",
+  "type": "{{ service_name }}",
+  
+  "roles": [
+    {% for resourcemanager in groups['masters'] %}
+    {
+      "name": "yarn-resourcemanager{{ loop.index }}",
+      "type": "RESOURCEMANAGER",
+      "hostRef": {
+        "hostId": "{{ resourcemanager }}"
+      },
+      "config": {}
+    }
+    {% if not loop.last %}, {% endif %}
+    {% endfor %},
+    {% for nodemanager in groups['slaves'] %}
+    {
+      "name": "yarn-nodemanager{{ loop.index }}",
+      "type": "NODEMANAGER",
+      "hostRef": {
+        "hostId": "{{ nodemanager }}"
+      }
+    }
+    {% if not loop.last %}, {% endif %}
+    {% endfor %},
+    {
+      "name": "yarn-jobhistory",
+      "type": "JOBHISTORY",
+      "hostRef": {
+        "hostId": "{{ groups['masters'][0] }}"
+      },
+      "config": {}
+    }
+  ]
+}
