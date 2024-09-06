@@ -1,18 +1,6 @@
 {
   "name": "{{ service_name }}",
   "type": "HIVE",
-  "configs": [
-    {
-    "name": "spark_on_yarn_service",
-    "ref": "SPARK_ON_YARN"
-    }, {
-      "name": "mapreduce_yarn_service",
-      "ref": "YARN"
-    }, {
-      "name": "zookeeper_service",
-      "ref": "ZOOKEEPER"
-    }
-  ]
   "roles": [
     {% for node in groups['masters'] %}
     {

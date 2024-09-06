@@ -1,15 +1,7 @@
 {
   "name": "{{ service_name }}",
   "type": "{{ service_name }}",
-  "configs": [
-    {
-      "name": "zookeeper_service",
-      "ref": "ZOOKEEPER"
-    }, {
-      "name": "hdfs_service",
-      "ref": "HDFS"
-    }
-  ],
+  
   "roles": [
     {% for resourcemanager in groups['masters'] %}
     {
@@ -39,6 +31,6 @@
         "hostId": "{{ groups['masters'][0] }}"
       },
       "config": {}
-    }    
+    }
   ]
 }
