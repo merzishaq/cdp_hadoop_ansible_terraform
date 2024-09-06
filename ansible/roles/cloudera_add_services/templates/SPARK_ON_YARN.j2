@@ -9,6 +9,14 @@
         "hostId": "{{ groups['edge'][0] }}"
       },
       "config": {}
+    },
+    {
+      "name": "spark-history",
+      "type": "SPARK_YARN_HISTORY_SERVER",
+      "hostRef": {
+        "hostId": "{{ groups['slaves'][0] }}"
+      },
+      "config": {}
     }
   ]
 }

@@ -1,5 +1,33 @@
 {
   "name": "{{ service_name }}",
   "type": "{{ service_name }}",
-  "roles": []
+  "roles": [
+    {% for node in groups['slaves'] %}
+    {
+      "name": "kafka-broker{{ loop.index }}",
+      "type": "KAFKA_BROKER",
+      "hostRef": {
+        "hostId": "{{ node }}"
+      },
+      "config": {}
+    }
+    {% if not loop.last %}, {% endif %}
+    {% endfor %},
+    {
+      "name": "kafka-broker0",
+      "type": "KAFKA_BROKER",
+      "hostRef": {
+        "hostId": "{{ groups['masters'][0] }}"
+      },
+      "config": {}
+    },
+    {
+      "name": "kafka-gateway",
+      "type": "GATEWAY",
+      "hostRef": {
+        "hostId": "{{ groups['edge'][0] }}"
+      },
+      "config": {}
+    }
+  ]
 }

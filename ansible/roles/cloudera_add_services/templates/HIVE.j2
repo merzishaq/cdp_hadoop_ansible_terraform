@@ -1,6 +1,6 @@
 {
   "name": "{{ service_name }}",
-  "type": "HIVE",
+  "type": "{{ service_name }}",
   "roles": [
     {% for node in groups['masters'] %}
     {
