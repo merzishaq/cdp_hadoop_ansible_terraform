@@ -1,5 +1,20 @@
 {
   "name": "{{ service_name }}",
   "type": "{{ service_name }}",
-  "roles": []
+  "configs": [
+    {
+      "name": "yarn_service",
+      "ref": "YARN"
+    }
+  ],
+  "roles": [
+    {
+      "name": "spark-client",
+      "type": "GATEWAY",
+      "hostRef": {
+        "hostId": "{{ groups['edge'][0] }}"
+      },
+      "config": {}
+    }
+  ]
 }

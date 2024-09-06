@@ -1,26 +1,42 @@
 {
   "name": "{{ service_name }}",
   "type": "HIVE",
-  "roles": [
-    {% for server in groups['masters'] %}
+  "configs": [
     {
-      "name": "hive-server{{ loop.index }}",
-      "type": "HIVESERVER2",
+    "name": "spark_on_yarn_service",
+    "ref": "SPARK_ON_YARN"
+    }, {
+      "name": "mapreduce_yarn_service",
+      "ref": "YARN"
+    }, {
+      "name": "zookeeper_service",
+      "ref": "ZOOKEEPER"
+    }
+  ]
+  "roles": [
+    {% for node in groups['masters'] %}
+    {
+      "name": "hive-metastore{{ loop.index }}",
+      "type": "HIVEMETASTORE",
       "hostRef": {
-        "hostId": "{{ server }}"
+        "hostId": "{{ node }}"
       },
       "config": {}
     }
     {% if not loop.last %}, {% endif %}
     {% endfor %},
+    
+    {% for server in groups['slaves'] %}
     {
-      "name": "hive-metastore",
-      "type": "HIVEMETASTORE",
+      "name": "hive-server{{ loop.index }}",
+      "type": "HIVESERVER2",
       "hostRef": {
-        "hostId": "{{ groups['cloudera_manager_server'][0] }}"
-      },
-      "config": {}
-    },
+        "hostId": "{{ server }}"
+      }
+    }
+    {% if not loop.last %}, {% endif %}
+    {% endfor %},
+
     {
       "name": "hive-client",
       "type": "GATEWAY",

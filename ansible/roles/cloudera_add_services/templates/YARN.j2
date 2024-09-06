@@ -1,6 +1,15 @@
 {
   "name": "{{ service_name }}",
   "type": "{{ service_name }}",
+  "configs": [
+    {
+      "name": "zookeeper_service",
+      "ref": "ZOOKEEPER"
+    }, {
+      "name": "hdfs_service",
+      "ref": "HDFS"
+    }
+  ],
   "roles": [
     {% for resourcemanager in groups['masters'] %}
     {
@@ -27,7 +36,7 @@
       "name": "yarn-jobhistory",
       "type": "JOBHISTORY",
       "hostRef": {
-        "hostId": "{{ groups['cloudera_manager_server'][0] }}"
+        "hostId": "{{ groups['masters'][0] }}"
       },
       "config": {}
     }    
