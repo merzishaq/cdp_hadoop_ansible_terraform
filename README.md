@@ -21,6 +21,7 @@ Une fois l'infrastructure prête, remplissez le fichier `hosts.ini` qui se trouv
    ```bash 
     ./installers/cdp_hadoop_installer.sh
    ```
+   ou
 
    ```bash 
     cd ./installers
@@ -113,7 +114,7 @@ Once the infrastructure is ready, fill out the `hosts.ini` file located in the `
     cd ./installers
     make -f cdp_hadoop_installer_make
    ```
-   
+
 ## Manual Installation Steps
 
 3. **Inventory Configuration:**
