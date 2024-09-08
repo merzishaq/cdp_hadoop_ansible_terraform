@@ -1,0 +1,55 @@
+# Makefile for Automated Hadoop Cluster Installation
+
+# Define a variable for the Ansible command
+ANSIBLE_PLAYBOOK = ansible-playbook
+
+# Define a variable for the directory containing Ansible playbooks
+ANSIBLE_DIR = ../ansible
+
+# Function to execute Ansible playbooks and check status
+define run_playbook
+	@echo "Running $1..."
+	cd $(ANSIBLE_DIR) && $(ANSIBLE_PLAYBOOK) $1
+	if [ $$? -ne 0 ]; then \
+		echo "Error during the execution of $1. Makefile is stopping."; \
+		exit 1; \
+	fi
+endef
+
+# Default target
+all: prepare_env cloudera_dependencies cloudera_run_agents database_install_server cloudera_nodes_add_connector cloudera_install_server cloudera_run_server cloudera_create_cluster_part1 cloudera_agents_restart cloudera_create_cluster_part2 cloudera_add_services
+
+prepare_env:
+	$(call run_playbook,1_prepare_env.yml)
+
+cloudera_dependencies:
+	$(call run_playbook,2_cloudera_dependencies.yml)
+
+cloudera_run_agents:
+	$(call run_playbook,3_cloudera_run_agents.yml)
+
+database_install_server:
+	$(call run_playbook,4_database_install_server.yml)
+
+cloudera_nodes_add_connector:
+	$(call run_playbook,5_cloudera_nodes_add_connector.yml)
+
+cloudera_install_server:
+	$(call run_playbook,6_cloudera_install_server.yml)
+
+cloudera_run_server:
+	$(call run_playbook,7_cloudera_run_server.yml)
+
+cloudera_create_cluster_part1:
+	$(call run_playbook,8_cloudera_create_cluster_part1.yml)
+
+cloudera_agents_restart:
+	$(call run_playbook,9_cloudera_agents_restart.yml)
+
+cloudera_create_cluster_part2:
+	$(call run_playbook,10_cloudera_create_cluster_part2.yml)
+
+cloudera_add_services:
+	$(call run_playbook,11_cloudera_add_services.yml)
+
+.PHONY: all prepare_env cloudera_dependencies cloudera_run_agents database_install_server cloudera_nodes_add_connector cloudera_install_server cloudera_run_server cloudera_create_cluster_part1 cloudera_agents_restart cloudera_create_cluster_part2 cloudera_add_services
