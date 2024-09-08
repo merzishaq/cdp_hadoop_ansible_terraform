@@ -3,13 +3,13 @@
 ## Description
 Ce projet contient une série de playbooks Ansible pour installer un cluster Hadoop sous la distribution Cloudera. Chaque playbook correspond à une étape spécifique de l'installation, et ils doivent être exécutés dans un ordre précis.
 
-## Méthodes d'installation
-
-Il existe trois méthodes pour installer le cluster Hadoop :
-
 ### Inventory
 
 Une fois l'infrastructure prête, remplissez le fichier `hosts.ini` qui se trouve dans le dossier `inventory` avec votre propre configuration.
+
+## Méthodes d'installation
+
+Il existe trois méthodes pour installer le cluster Hadoop :
 
 ## Étapes d'installation automatique
 
@@ -76,13 +76,13 @@ ________________________________________________________________________________
 ## Description
 This project contains a series of Ansible playbooks for installing a Hadoop cluster using the Cloudera distribution. Each playbook corresponds to a specific step of the installation and must be executed in a specific order.
 
-## Installation Methods
-
-There are three methods to install the Hadoop cluster:
-
 ### Inventory
 
 Once the infrastructure is ready, fill out the `hosts.ini` file located in the `inventory` folder with your own configuration.
+
+## Installation Methods
+
+There are three methods to install the Hadoop cluster:
 
 ## Automated Installation Steps
 
