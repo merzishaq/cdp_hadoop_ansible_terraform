@@ -17,24 +17,30 @@ Une fois l'infrastructure prête, remplissez le fichier `hosts.ini` qui se trouv
    Vous pouvez installer le cluster en exécutant le script `cdp_hadoop_installer.sh`, situé dans le dossier `installers`. Ce script automatise les différentes étapes d'installation.
 
    Pour l'exécuter, utilisez la commande suivante :
-   ```bash
-   ./installers/cdp_hadoop_installer.sh
    
-   ou
-   ```bash cd ./installers
-   ./cdp_hadoop_installer.sh
+   ```bash 
+    ./installers/cdp_hadoop_installer.sh
+   ```
+
+   ```bash 
+    cd ./installers
+    ./cdp_hadoop_installer.sh
+   ```
 
 2. **Installation automatique avec Makefile :**
    Une autre méthode automatique consiste à utiliser le fichier `cdp_hadoop_installer_make`, également situé dans le dossier `installers`. Ce fichier Make automatise le processus d'installation via des cibles définies.
 
    Pour lancer cette méthode, exécutez la commande suivante :
+ 
    ```bash
-   make -f installers/cdp_hadoop_installer_make
-   
+    make -f installers/cdp_hadoop_installer_make
+   ```
    ou
+
    ```bash
-   cd ./installers
-   make -f cdp_hadoop_installer_make
+    cd ./installers
+    make -f cdp_hadoop_installer_make
+   ```
 
 ## Étapes d'installation manuelle
 
@@ -83,27 +89,31 @@ Once the infrastructure is ready, fill out the `hosts.ini` file located in the `
    You can install the cluster by running the `cdp_hadoop_installer.sh` script, located in the `installers` folder. This script automates the various installation steps.
 
    To execute it, use the following command:
-   ```bash
-   ./installers/cdp_hadoop_installer.sh
    
-   or
    ```bash
-   cd ./installers
-   ./cdp_hadoop_installer.sh
+    ./installers/cdp_hadoop_installer.sh
+   ```   
+   or
+   
+   ```bash
+    cd ./installers
+    ./cdp_hadoop_installer.sh
+   ```
 
 2. **Automated Installation with Makefile:**
    Another automated method is to use the `cdp_hadoop_installer_make` Makefile, also located in the `installers` folder. This Makefile automates the installation process through defined targets.
 
    To execute this method, use the following command:
    ```bash
-   make -f installers/cdp_hadoop_installer_make
-   
+    make -f installers/cdp_hadoop_installer_make
+   ```
    or
 
    ```bash
-   cd ./installers
-   make -f cdp_hadoop_installer_make
-
+    cd ./installers
+    make -f cdp_hadoop_installer_make
+   ```
+   
 ## Manual Installation Steps
 
 3. **Inventory Configuration:**
