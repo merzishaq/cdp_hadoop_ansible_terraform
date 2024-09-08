@@ -45,9 +45,7 @@ Il existe trois méthodes pour installer le cluster Hadoop :
 
 ## Étapes d'installation manuelle
 
-3. **Configuration de l'inventaire :**
-
-. **Exécution des playbooks :**
+3. **Exécution des playbooks :**
    Lancez les playbooks dans l'ordre suivant pour procéder à l'installation du cluster :
 
    - `1_prepare_env.yml` : Préparation de l'environnement.
@@ -117,9 +115,7 @@ There are three methods to install the Hadoop cluster:
 
 ## Manual Installation Steps
 
-3. **Inventory Configuration:**
-
-. **Running the Playbooks:**
+3. **Running the Playbooks:**
    Execute the playbooks in the following order to proceed with the cluster installation:
 
    - `1_prepare_env.yml`: Environment preparation.
